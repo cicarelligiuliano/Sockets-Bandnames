@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { SocketContext } from '../context/SocketContext';
 
-const BandAdd = ({ agregarBanda }) => {
+const BandAdd = () => {
     const [valor, setValor] = useState('');
+    const { socket } = useContext(SocketContext);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -13,6 +15,10 @@ const BandAdd = ({ agregarBanda }) => {
 
     const handleChange = (e) => {
         setValor(e.target.value);
+    };
+
+    const agregarBanda = (name) => {
+        socket.emit('agregar-banda', name);
     };
 
     return (
